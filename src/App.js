@@ -1,33 +1,23 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect } from "react";
 import TextUpdaterNode from './Components/TextUpdater'
 import ReactFlow, {
   addEdge,
   MiniMap,
   Controls,
   Background,
-  applyNodeChanges,
-  applyEdgeChanges, 
   ReactFlowProvider, useReactFlow, useNodesState, useEdgesState} 
 from "react-flow-renderer";
 
-// const initialNodes = [];
-
-// const initialEdges = [];
-let nodeId = 0
-// let initialNodes = [];
-// let initialEdges = [];
 const nodeTypes = { textUpdater: TextUpdaterNode };
 function Flow({initialNodes,initialEdges}) {
-  console.log("initialEdges")
-  console.log(initialNodes)
-  console.log(initialEdges)
+
   const reactFlowInstance = useReactFlow();
 
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
   useEffect(() => {
-    console.log("called useEffect");
+    console.log("loaded")
     setEdges(initialEdges);
     setNodes(initialNodes)
   }, []);
@@ -37,14 +27,25 @@ function Flow({initialNodes,initialEdges}) {
 
   const defaultEdgeOptions = { animated: true };
 
-  // console.log(reactFlowInstance.getNodes());
-  // console.log(reactFlowInstance.toObject());
-
+  const onChange = (event) => {
+    setNodes((nds) =>
+      nds.map((node) => {
+        const {id,value} = event.target;
+        if(node.id !== id){
+          return node;
+        }
+        return {
+          ...node,
+          data: {
+            ...node.data,
+            label:value,
+          },
+        };
+      })
+    );
+  };
   const onClick = useCallback(() => {
-    const viewport = reactFlowInstance.toObject().viewport;
-    console.log(reactFlowInstance.toObject());
     const id = `${reactFlowInstance.toObject().nodes.length}`;
-    console.log('id',id);
     const newNode = {
       id,
       type: 'textUpdater',
@@ -53,7 +54,7 @@ function Flow({initialNodes,initialEdges}) {
         y: Math.random() *  window.innerHeight,
       },
       data: {
-        // label: <input className="special-input input-node" type="text" placeholder={nodeId === 1 ? 'Input Node':'New Node'} />,
+        onChange:onChange,
         label: ""
       },
     };
@@ -62,7 +63,6 @@ function Flow({initialNodes,initialEdges}) {
   }, []);
   const onSave =()=>{
     const element = document.createElement('a');
-    console.log("save");
     const {nodes,edges} = reactFlowInstance.toObject();
     const data={
       initialNodes:nodes,
@@ -73,7 +73,13 @@ function Flow({initialNodes,initialEdges}) {
     element.download = "data.json"
     document.body.appendChild(element);
     element.click();
+    console.log("save called");
   }
+  const onNew = useCallback(()=>{
+    setEdges([]);
+    setNodes([])
+    console.log("New page")
+  },[])
   return (
     <>
       <ReactFlow
@@ -83,7 +89,6 @@ function Flow({initialNodes,initialEdges}) {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         nodeTypes={nodeTypes}
-
         defaultEdgeOptions={defaultEdgeOptions}
       >
         <Background/>
@@ -92,14 +97,14 @@ function Flow({initialNodes,initialEdges}) {
       </ReactFlow>
       <button onClick={onClick} className="btn-class create-node">Add Node</button>
       <button onClick={onSave} className="btn-class save">Save</button>
+      <button onClick={onNew} className="btn-class new">Create New</button>
     </>
   );
 }
 export default function (props) {
   return (
     <ReactFlowProvider >
-      {console.log(props)}
-      <Flow initialNodes={props.initialNodes} initialEdges={props.initialEdges} />
-    </ReactFlowProvider>
+      <Flow initialNodes={props.initialNodes} initialEdges={props.initialEdges}/>
+    </ReactFlowProvider> 
   );
 }

@@ -12,12 +12,6 @@ html, body, #root {
   border-radius: 5px;
 
 }
-
-
-
-
-
-
 .btn-class {
   z-index: 10;
   background-color: #04AA6D;
@@ -53,19 +47,34 @@ html, body, #root {
   height:80vh;
   justify-content: center;
 }
-
+.xio{
+  position: fixed;
+  top:150px;
+  right:65px;
+  width:100px;
+  z-index: 20;
+  /* margin-right: 105px; */
+}
 .special-input{
   text-align: center;
   border:none;
   justify-content: center;
+}
+.label-input{
+  padding:10px;
+  text-align: center;
+  justify-content: center;
 
 }
-.input-node{
-  width:120px;
-}
+
 .save{
   right:5px;
   top:100px;
+  position: fixed;
+}
+.new{
+  right:10px;
+  top:150px;
   position: fixed;
 }
 

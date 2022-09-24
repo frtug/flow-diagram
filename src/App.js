@@ -18,10 +18,20 @@ function Flow({initialNodes,initialEdges}) {
 
   useEffect(() => {
     console.log("loaded")
-    setEdges(initialEdges);
-    setNodes(initialNodes)
+      setEdges(initialEdges);
+      setNodes(initialNodes)
+    
   }, []);
-  
+  useEffect(()=>{
+    const data={
+      initialNodes:nodes,
+      initialEdges:edges
+    }
+    console.log(data);
+    if(nodes.length > 0)
+      localStorage.setItem('data', JSON.stringify(data));
+    else localStorage.removeItem('data')
+  },[nodes,edges])
   
   const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), []);
 
@@ -76,6 +86,7 @@ function Flow({initialNodes,initialEdges}) {
     console.log("save called");
   }
   const onNew = useCallback(()=>{
+    localStorage.removeItem('data');
     setEdges([]);
     setNodes([])
     console.log("New page")

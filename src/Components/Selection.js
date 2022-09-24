@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 // import { ReactFlowProvider } from 'react-flow-renderer';
 import App from '../App';
 
@@ -9,9 +9,20 @@ const Selection = ()=> {
     const [initialEdges,setInitialEdges] = useState([]);
 
     const [isError,setIsError] = useState(false);
+    useEffect(()=>{
+        const data =  JSON.parse(localStorage.getItem('data'))
+        console.log(data?.initialEdges);
+        console.log(data?.initialNodes);
 
+        if(data && data.initialEdges && data.initialNodes){
+            setInitialNodes(data.initialNodes);
+            setInitialEdges(data.initialEdges)
+            setIsFilePicked(true);
+        }
+    },[])
     const onClickButton =(event)=>{
         setCreateNew(true);
+        localStorage.removeItem('data');
     }
     const fileChangeHandler =(event)=>{
         const file = event.target.files[0];
@@ -62,7 +73,7 @@ const Selection = ()=> {
                         </label> 
                     </div>
                     <div className='right-side'>
-                        <button type="submit" className='btn-class create-file' onClick={onClickButton}> Create New</button>
+                        <button  className='btn-class create-file' onClick={onClickButton}> Create New</button>
                     </div>
                     
                 </div>

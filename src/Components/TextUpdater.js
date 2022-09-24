@@ -1,6 +1,7 @@
+import { memo } from 'react';
 import { Handle, Position } from 'react-flow-renderer';
 
-function TextUpdaterNode({ data,id }) {
+export default memo(({ data,id }) => {
   return (
     <div className="text-updater-node">
       {
@@ -15,5 +16,4 @@ function TextUpdaterNode({ data,id }) {
       <Handle type="source" position={Position.Bottom} id="b" />
     </div>
   );
-}
-export default TextUpdaterNode;
+});

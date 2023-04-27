@@ -5,92 +5,39 @@ import ReactFlow, {
   MiniMap,
   Controls,
   Background,
-  ReactFlowProvider, useReactFlow, useNodesState, useEdgesState} 
+  ReactFlowProvider, useNodesState, useEdgesState} 
 from "react-flow-renderer";
+
+import NavRight from "./Components/NavRight";
 
 const nodeTypes = { textUpdater: TextUpdaterNode };
 function Flow({initialNodes,initialEdges}) {
 
-  const reactFlowInstance = useReactFlow();
 
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
-  useEffect(() => {
-    console.log("loaded")
-      setEdges(initialEdges);
-      setNodes(initialNodes)
+  // useEffect(() => {
+  //   console.log("loaded")
+  //     setEdges(initialEdges);
+  //     setNodes(initialNodes)
     
-  }, []);
+  // }, []);
   useEffect(()=>{
     const data={
       initialNodes:nodes,
       initialEdges:edges
     }
-    console.log(data);
     if(nodes.length > 0)
       localStorage.setItem('data', JSON.stringify(data));
     else localStorage.removeItem('data')
   },[nodes,edges])
   
-  const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), []);
+  const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)),[]);
 
   const defaultEdgeOptions = { animated: true };
 
-  const onChange = (event) => {
-    setNodes((nds) =>
-      nds.map((node) => {
-        const {id,value} = event.target;
-        if(node.id !== id){
-          return node;
-        }
-        return {
-          ...node,
-          data: {
-            ...node.data,
-            label:value,
-          },
-        };
-      })
-    );
-  };
-  const onClick = useCallback(() => {
-    const id = `${reactFlowInstance.toObject().nodes.length}`;
-    const newNode = {
-      id,
-      type: 'textUpdater',
-      position: {
-        x: Math.random() * window.innerWidth - 100,
-        y: Math.random() *  window.innerHeight,
-      },
-      data: {
-        onChange:onChange,
-        label: ""
-      },
-    };
-    reactFlowInstance.addNodes(newNode);
-    console.log("node added");
-  }, []);
-  const onSave =()=>{
-    const element = document.createElement('a');
-    const {nodes,edges} = reactFlowInstance.toObject();
-    const data={
-      initialNodes:nodes,
-      initialEdges:edges
-    }
-    const file = new Blob([JSON.stringify(data)],{type: "application/json"});
-    element.href = URL.createObjectURL(file);
-    element.download = "data.json"
-    document.body.appendChild(element);
-    element.click();
-    console.log("save called");
-  }
-  const onNew = useCallback(()=>{
-    localStorage.removeItem('data');
-    setEdges([]);
-    setNodes([])
-    console.log("New page")
-  },[])
+  
   return (
     <>
       <ReactFlow
@@ -106,16 +53,14 @@ function Flow({initialNodes,initialEdges}) {
         <MiniMap/>
         <Controls/>
       </ReactFlow>
-      <button onClick={onClick} className="btn-class create-node">Add Node</button>
-      <button onClick={onSave} className="btn-class save">Save</button>
-      <button onClick={onNew} className="btn-class new">Create New</button>
-    </>
+      <NavRight setNodes={setNodes} setEdges={setEdges}/>
+      </>
   );
 }
-export default function (props) {
+export default function ({initialNodes,initialEdges}) {
   return (
     <ReactFlowProvider >
-      <Flow initialNodes={props.initialNodes} initialEdges={props.initialEdges}/>
+      <Flow initialNodes={initialNodes} initialEdges={initialEdges}/>
     </ReactFlowProvider> 
   );
 }

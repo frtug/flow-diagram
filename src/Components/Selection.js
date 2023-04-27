@@ -1,91 +1,38 @@
 import React, { useEffect, useState } from 'react'
-// import { ReactFlowProvider } from 'react-flow-renderer';
 import App from '../App';
+import DefaultHome from './DefaultHome';
 
 const Selection = ()=> {
     const [isFilePicked,setIsFilePicked] = useState(false);
-    const [createNew,setCreateNew] = useState(false);
     const [initialNodes,setInitialNodes] = useState([]);
     const [initialEdges,setInitialEdges] = useState([]);
+    const [createNew,setCreateNew] = useState(false);
 
-    const [isError,setIsError] = useState(false);
     useEffect(()=>{
         const data =  JSON.parse(localStorage.getItem('data'))
-        console.log(data?.initialEdges);
-        console.log(data?.initialNodes);
-
-        if(data && data.initialEdges && data.initialNodes){
+        if(data && data.initialNodes && data.initialEdges){
             setInitialNodes(data.initialNodes);
             setInitialEdges(data.initialEdges)
             setIsFilePicked(true);
+            console.log("file  picked from local store");
         }
     },[])
-    const onClickButton =(event)=>{
-        setCreateNew(true);
-        localStorage.removeItem('data');
-    }
-    const fileChangeHandler =(event)=>{
-        const file = event.target.files[0];
-
-        if(!file.name.endsWith(".json")){
-            setIsError(true);
-            setIsFilePicked(false);
-            return;
-        }
-        var fileread = new FileReader();
-        try{
-            fileread.onload = function(e) {
-                setIsFilePicked(true);
-                setIsError(false);
-
-                var initial = JSON.parse(e.target.result);
-                setInitialEdges(initial.initialEdges);                
-                setInitialNodes(initial.initialNodes);
-            };
-            fileread.onerror = function (error) {
-                console.log('Error: ');
-                setIsFilePicked(false);
-                setIsError(true);
-            }
-        }
-        catch(err){
-            console.log('Error: ');
-            setIsFilePicked(false);
-            setIsError(true);
-        }
-        fileread.readAsText(file);
-    }
     return (    
         <>
         {createNew || isFilePicked ? 
-            <>
-                <App initialNodes={initialNodes} initialEdges={initialEdges}/>
-            </>
+            <App 
+                initialNodes={initialNodes} 
+                initialEdges={initialEdges}
+            />  
             :
-            <>
-                <div className="header">
-                    <h1>React Flow App</h1>
-                </div>
-                <div className='card'>
-                    <div className='left-side'>
-                        <label>
-                            <input  className="special-input" type="file" onChange={fileChangeHandler}/>
-                        </label> 
-                    </div>
-                    <div className='right-side'>
-                        <button  className='btn-class create-file' onClick={onClickButton}> Create New</button>
-                    </div>
-                    
-                </div>
-            </>
-            
+            <DefaultHome 
+                setCreateNew={setCreateNew}
+                setIsFilePicked={setIsFilePicked} 
+                setInitialEdges={setInitialEdges}
+                setInitialNodes={setInitialNodes}
+            />
         }
-        {
-        isError ?
-            <div className="error">File error is found </div>
-            : 
-            null
-        }
+        
         
         </>
     

@@ -12,18 +12,8 @@ html, body, #root {
   border-radius: 5px;
 
 }
-.btn-class {
-  z-index: 10;
-  background-color: #04AA6D;
-  border: none;
-  font-size: 12px;
-  color: #FFFFFF;
-  padding: 10px;
-  text-align: center;
-  text-decoration: none;
-  overflow: hidden;
-  cursor: pointer;
-}
+
+
 .header{
   color:rgb(36, 11, 98);
   display: flex;
@@ -31,22 +21,33 @@ html, body, #root {
   align-items: center;
   height: 80px;
 }
-.create-node{
-  top:50px;
-  right:5px;
-  position: fixed;
-}
+
 .create-file{
   background-color: rgb(36, 11, 98);
 }
 .card{
   margin: 0 10px 0 10px;
   display: flex;
-  background-color: rgba(215, 214, 219, 0.526);
-  align-items: center;
+  background-color: rgba(218, 213, 237, 0.526);
   height:80vh;
-  justify-content: center;
+  text-align: center;
+  /* justify-items: center; */
 }
+.left-side{
+  flex-grow: calc(1);
+  background-color: #e6f9e6;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.right-side{
+  flex-grow: calc(1);
+  background-color: rgb(215, 247, 247);
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
 .xio{
   position: fixed;
   top:150px;
@@ -60,23 +61,34 @@ html, body, #root {
   border:none;
   justify-content: center;
 }
-.label-input{
-  padding:10px;
-  text-align: center;
-  justify-content: center;
 
+.file-input{
+  display: none;
+}
+.file-box{
+  display: flex;
+  margin-top: 3px;
+}
+.file-box > label{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5px;
+  color:rgb(36, 11, 98);
+  padding: 4px;
+}
+label:hover{
+  background-color: #a3f0a1;
+  color:rgb(22, 15, 15);
 }
 
-.save{
-  right:5px;
-  top:100px;
-  position: fixed;
+img:active{
+  transform: scale(0.98);
+  /* Scaling button to 0.98 to its original size */
+  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+  /* Lowering the shadow */
 }
-.new{
-  right:10px;
-  top:150px;
-  position: fixed;
-}
+
 
 .input-node:focus{
   outline: none;
@@ -88,6 +100,58 @@ html, body, #root {
   z-index:20;
   font-size: 20px;
   color:red;
+}
+.button-section{
+  z-index: 100;
+  background-color: rgb(244, 246, 247);
+  width:100px;
+  height: 450px;
+  position:fixed;
+  right:10px;
+  top:10px;
+  display:flex;
+  flex-direction: column; 
+  align-items: end;
   
 }
+.btn-class {
+  background-color: #f4f4f4;
+  border: none;
+  font-size: 12px;
+  color:rgb(36, 11, 98);
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  margin:3px;
+  display: flex;
+  align-items: baseline;
+}
+.btn-class > img{
+  padding-left: 4px;;
+}
+
+.btn-class:hover {
+  background-color: #a3f0a1;
+  color:rgb(22, 15, 15);
+}
+.btn-class:active, img:active{
+  transform: scale(0.98);
+  /* Scaling button to 0.98 to its original size */
+  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+  /* Lowering the shadow */
+}
+.section-close{
+  right:10px;
+  top:10px;
+  z-index: 100;
+  /* background-color: antiquewhite; */
+  /* width:50px;
+  height:70px; */
+  position:fixed;
+}
+
+
 

@@ -49,7 +49,7 @@ function NavRight({setNodes,setEdges}) {
           },
         };
         reactFlowInstance.addNodes(newNode);
-        console.log(id)
+        console.log(id)   
         console.log("node added");
       }, []);
       const onSave =()=>{

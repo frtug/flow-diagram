@@ -1,42 +1,32 @@
-import React, { useEffect, useState } from 'react'
-import App from '../App';
-import DefaultHome from './DefaultHome';
+import React from 'react'
+import { BrowserRouter as Router, Routes, Route}
+    from 'react-router-dom';
+import Login from './LoginPage';
+import Signup from './RegisterPage'
+import Forget from './ForgetPasswordPage'
+import Dashboard from './Dashboard';
+import { AuthProvider } from '../contexts/AuthContext';
+import Profile from '../Pages/Profile';
+import PrivateRoute from './PrivateRoute';
 
 const Selection = ()=> {
-    const [isFilePicked,setIsFilePicked] = useState(false);
-    const [initialNodes,setInitialNodes] = useState([]);
-    const [initialEdges,setInitialEdges] = useState([]);
-    const [createNew,setCreateNew] = useState(false);
-
-    useEffect(()=>{
-        const data =  JSON.parse(localStorage.getItem('data'))
-        if(data && data.initialNodes && data.initialEdges){
-            setInitialNodes(data.initialNodes);
-            setInitialEdges(data.initialEdges)
-            setIsFilePicked(true);
-            console.log("file  picked from local store");
-        }
-    },[])
-    return (    
-        <>
-        {createNew || isFilePicked ? 
-            <App 
-                initialNodes={initialNodes} 
-                initialEdges={initialEdges}
-            />  
-            :
-            <DefaultHome 
-                setCreateNew={setCreateNew}
-                setIsFilePicked={setIsFilePicked} 
-                setInitialEdges={setInitialEdges}
-                setInitialNodes={setInitialNodes}
-            />
-        }
-        
-        
-        </>
     
-  )
+    return (
+        <Router>
+            <AuthProvider>
+            <Routes>
+                <Route exact path="/" element={<PrivateRoute/>}>
+                    <Route exact path='/' element={<Dashboard/>}/>
+                </Route>
+                 <Route path="/login" element={<Login/>} />
+                <Route path="/signup" element={<Signup/>} />
+                <Route path="/forget" element={<Forget/>} />
+                <Route path='/profile' element={<Profile/>}/>
+            </Routes>
+        </AuthProvider> 
+        </Router>
+    
+  );
 }
 
 export default Selection

@@ -12,6 +12,11 @@ html, body, #root {
   border-radius: 5px;
 
 }
+.nav{
+  position: absolute;
+  display: flex;
+  right:20px;  
+}
 
 
 .header{
@@ -111,7 +116,7 @@ img:active{
   top:10px;
   display:flex;
   flex-direction: column; 
-  align-items: end;
+  align-items: flex-end;
   
 }
 .btn-class {
@@ -128,6 +133,7 @@ img:active{
   margin:3px;
   display: flex;
   align-items: baseline;
+  border-radius: 5px;
 }
 .btn-class > img{
   padding-left: 4px;;

@@ -39,6 +39,8 @@ export function AuthProvider({children}) {
     async function saveToDatabase(data){
         // saving to database things happens here and
         if(!currentUser) return
+        const sanitizedData = JSON.parse(JSON.stringify(data));
+
         console.log(data);
         var fileName = prompt("Enter the name of file");
         while(await checkDatabaseFiles(fileName)){
@@ -48,7 +50,7 @@ export function AuthProvider({children}) {
         }
         await setDoc(doc(db,currentUser.uid,fileName),{
             timestamp:serverTimestamp(),
-            data:data,
+            data:sanitizedData,
             fileName:fileName
         });
         fetchFromDatabase(currentUser)

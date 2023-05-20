@@ -158,6 +158,18 @@ img:active{
   height:70px; */
   position:fixed;
 }
+.fetched-data{
+  overflow-x: scroll;
+}
+.fetched-data > input{
+  width: 90%;
+}
+.data-all{
+  padding-top: 5px;
+}
+.data-all > span {
+  padding: 10px;
+}
 
 
 

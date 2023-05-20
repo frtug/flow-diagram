@@ -53,7 +53,7 @@ function Flow({initialNodes,initialEdges}) {
         <MiniMap/>
         <Controls/>
       </ReactFlow>
-      <NavRight setNodes={setNodes} setEdges={setEdges}/>
+      <NavRight nodes={nodes} edges={edges} setNodes={setNodes} setEdges={setEdges}/>
       </>
   );
 }

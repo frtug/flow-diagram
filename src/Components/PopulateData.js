@@ -18,8 +18,11 @@ export default function PopulateData({setInitialEdges,setInitialNodes}) {
         var newDate = new Date();
         newDate.setTime(serverTime*1000);
         let dateString = newDate.toUTCString();
+        const istOptions = { timeZone: 'Asia/Kolkata', timeZoneName: 'short' };
+        dateString = dateString.toLocaleString('en-IN', istOptions);
+        console.log(dateString)
         result += ", created At-"+dateString;
-        return result;
+        return result;  
     }
     const handleChange =(e)=>{
         console.log(e.target.value);

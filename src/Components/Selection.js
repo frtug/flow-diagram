@@ -15,19 +15,12 @@ const Selection = ()=> {
             <AuthProvider>
             <Routes>
                 <Route exact path='/' 
-                    element={
-                    <PrivateRoute>
-                        <Dashboard/>
-                    </PrivateRoute>
-                }/>
+                    element={<Dashboard/>}/>
                 <Route path="/login" element={<Login/>} />
                 <Route path="/signup" element={<Signup/>} />
                 <Route path="/forget" element={<Forget/>} />
                 <Route path='/profile' 
-                    element={
-                    <PrivateRoute>
-                        <Profile/>
-                    </PrivateRoute>
+                    element={ <Profile/>
                 }/>
             </Routes>
         </AuthProvider> 

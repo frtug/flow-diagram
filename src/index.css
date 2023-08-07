@@ -17,6 +17,13 @@ html, body, #root {
   display: flex;
   right:20px;  
 }
+.title{
+  position: fixed;
+  background-color: #a3f0a1;
+  padding:5px;
+  z-index:100;
+  width:100vw;
+}
 
 
 .header{
@@ -109,15 +116,19 @@ img:active{
 .button-section{
   z-index: 100;
   background-color: rgb(244, 246, 247);
-  width:100px;
-  height: 450px;
+  width:12vw;
+  min-width: 100px;
+  height: 60%;
   position:fixed;
   right:10px;
   top:10px;
   display:flex;
   flex-direction: column; 
-  align-items: flex-end;
-  
+  align-items: center;
+}
+.title-btn{
+  font-size: 2vw !important;
+  background-color:  rgb(244, 246, 247) !important;
 }
 .btn-class {
   background-color: #f4f4f4;
@@ -132,16 +143,15 @@ img:active{
   position: relative;
   margin:3px;
   display: flex;
-  align-items: baseline;
+  align-items: center;
   border-radius: 5px;
 }
 .btn-class > img{
   padding-left: 4px;;
 }
 
-.btn-class:hover {
-  background-color: #a3f0a1;
-  color:rgb(22, 15, 15);
+.btn-class:hover { 
+  /* border:1px solid rgba(170, 169, 169, 0.347) */
 }
 .btn-class:active, img:active{
   transform: scale(0.98);
@@ -153,23 +163,63 @@ img:active{
   right:10px;
   top:10px;
   z-index: 100;
-  /* background-color: antiquewhite; */
-  /* width:50px;
-  height:70px; */
   position:fixed;
 }
+.isActive{
+  color:white;
+  background-color: #023702;
+  border:1px solid blue;
+}
 .fetched-data{
-  overflow-x: scroll;
+  height: 100%;
+  overflow-y: scroll;
+  background-color: #eff1ef;
+  /* padding:1rem; */
+  border:2px solid lightgray;
+  padding: 1rem 0 0 1rem;
 }
 .fetched-data > input{
   width: 90%;
+  height:15%;
 }
 .data-all{
-  padding-top: 5px;
+  /* padding-top: 5px; */
+  height: 80%;
 }
 .data-all > span {
   padding: 10px;
 }
+.model{
+  right:-90px;
+  top:-15px;
+  width:auto;
+  width:100px;
+  height:170px;
+  padding: 3px;
+  position: absolute;
+  background-color: #053712;
+  z-index:105;
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 10%;
+  color:white;
+}
+.btn{
+  height:30px;
+  width:30px;
+  padding:0;
+  border:none;
+  justify-content: center;
+  cursor: pointer;
+}
+.closeButton{
+  margin-bottom: 1rem;
+  width: 30px;
 
+  /* position: absolute; */
+  margin-left:80%
+}
 
 

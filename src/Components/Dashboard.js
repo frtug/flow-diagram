@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react'
-import App from '../App';
-import DefaultHome from './DefaultHome';
+import Main from './Main';
+import DefaultHome from '../Pages/Home';
 
 const Dashboard=()=>{
     const [isFilePicked,setIsFilePicked] = useState(false);
@@ -22,7 +22,7 @@ const Dashboard=()=>{
         <>
         { 
         (createNew || isFilePicked) ? 
-            <App 
+            <Main 
                 initialNodes={initialNodes} 
                 initialEdges={initialEdges}
             />  

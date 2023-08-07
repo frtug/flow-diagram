@@ -13,7 +13,7 @@ export function AuthProvider({children}) {
     const [currentUser,setCurrentUser] = useState();
     const [loading,setLoading] = useState(true);
     const [fetchedData,setFetchedData] = useState([]);
- 
+    const [currentFile,setCurrentFile] = useState("");
     function signUp(email,password){
         return createUserWithEmailAndPassword(auth,email,password);
     }
@@ -29,7 +29,7 @@ export function AuthProvider({children}) {
         try{
             const docRef = doc(db,currentUser.uid,file);
             const docSnap = await getDoc(docRef);
-            if(docSnap.exists()) return true;
+            if(docSnap.exists() || file === "") return true;
             else return false;
         }
         catch(error){

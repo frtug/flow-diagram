@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import CreateNewButton from './CreateNewButton';
-import InputReuseable from './InputReuseable';
+import CreateNewButton from '../Components/CreateNewButton';
+import InputReuseable from '../Components/InputReuseable';
 import { Link } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext';
 export default function DefaultHome({setCreateNew,setIsFilePicked,setInitialEdges,setInitialNodes}) {

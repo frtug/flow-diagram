@@ -7,7 +7,12 @@ export default memo(({ data,id }) => {
       { data.type !== "input" && 
         <Handle type="target" position={Position.Top} />
       }
-        <input  readOnly={true}  onBlur={(e)=>e.target.readOnly=true} onDoubleClick={(e)=> e.target.readOnly=false} className="special-input input-node" id={id} defaultValue={data.label} name="text" onChange={data.onChange} placeholder={`${data.type} Node`} />
+        <input  readOnly={true} onBlur={(e)=>e.target.readOnly=true} 
+          onDoubleClick={(e)=> e.target.readOnly=false} 
+          className="special-input input-node" 
+          id={id} defaultValue={data.label} 
+          name="text" onChange={data.onChange} placeholder={`${data.type} Node`} 
+        />
       { data.type !== "output" && 
         <Handle type="source" position={Position.Bottom} id="b" />
       }

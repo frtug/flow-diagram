@@ -20,7 +20,7 @@ function NavRight({nodes,edges,setNodes,setEdges}) {
         if(event.target.readOnly === true)
           event.target.style.cursor = "pointer";
         else 
-          event.target.style.cursor = "auto";
+        event.target.style.cursor = "auto";
         setNodes((nds) =>
           nds.map((node) => {
             const {id,value} = event.target;
@@ -38,7 +38,6 @@ function NavRight({nodes,edges,setNodes,setEdges}) {
         );
       };
       const onNewInput = useCallback((event) => {
-        // window.location.reload();
         const id = `nodeid-${reactFlowInstance.toObject().nodes.length}`;
         const newNode = {
           id,
@@ -90,7 +89,7 @@ function NavRight({nodes,edges,setNodes,setEdges}) {
     <>
       {isOpen ? 
       <div className="button-section">
-        <button style={{marginBottom:"15px"}}onClick={()=>setIsOpen(false)}>
+        <button className="closeButton" onClick={()=>setIsOpen(false)}>
           <img src={cross} className="cross" alt="cross" width="15px" height="15px"/>
         </button>
         { 

@@ -14,7 +14,7 @@ export default function Profile() {
   return (
     <div className="app">
       <div className="login-form">
-        <h1 className="title">Profile</h1>
+        <h1 className="sub-title">Profile</h1>
         <button
           onClick={logout}
           style={{

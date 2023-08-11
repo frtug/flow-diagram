@@ -12,6 +12,7 @@ import 'reactflow/dist/style.css';
 
 import NavRight from "./NavRight";
 import Title from "./Title";
+import DownloadButton from "./DownloadButton";
 
 const nodeTypes = { textUpdater: TextUpdaterNode };
 function Flow({initialNodes,initialEdges}) {
@@ -51,6 +52,7 @@ function Flow({initialNodes,initialEdges}) {
         <MiniMap/>
         <Controls/>
       </ReactFlow>
+      <DownloadButton />
       <NavRight nodes={nodes} edges={edges} setNodes={setNodes} setEdges={setEdges}/>
       </>
   );

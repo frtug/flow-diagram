@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import {auth } from '../firebase'
 import {signOut,createUserWithEmailAndPassword,signInWithEmailAndPassword,onAuthStateChanged} from 'firebase/auth'
-import { addDoc, collection, doc, getDoc, getDocs, serverTimestamp, setDoc } from "firebase/firestore"; 
+import { addDoc, collection, doc, getDoc, getDocs, serverTimestamp, setDoc,deleteDoc } from "firebase/firestore"; 
 import {db} from '../firebase'
 const AuthContext = React.createContext();
 
@@ -38,9 +38,10 @@ export function AuthProvider({children}) {
     }
     async function saveToDatabase(data){
         // saving to database things happens here and
+        console.log(data)
         if(!currentUser) return
         const sanitizedData = JSON.parse(JSON.stringify(data));
-
+        console.log("sanatized data",sanitizedData)
         console.log(data);
         var fileName = prompt("Enter the name of file");
         while(await checkDatabaseFiles(fileName)){
@@ -64,6 +65,20 @@ export function AuthProvider({children}) {
             setFetchedData((prevData)=> [...prevData,doc.data()])
         });
     }
+    async function deleteFileName(fileName){
+        if(!currentUser) return
+        try{
+            const userSnapshot = await doc(db,currentUser.uid,fileName);
+
+            console.log(userSnapshot)
+            await deleteDoc(userSnapshot);
+        console.log('Document deleted successfully!');
+        return "1";
+      } catch (error) {
+        console.error('Error deleting document: ', error);
+        return "0";
+        }
+    }
     
     useEffect(()=>{
         const unSubscribe = onAuthStateChanged(auth,(user)=>{
@@ -82,7 +97,8 @@ export function AuthProvider({children}) {
         login,
         logingOut,
         saveToDatabase,
-        fetchedData
+        fetchedData,
+        deleteFileName,
     }
    
   return (

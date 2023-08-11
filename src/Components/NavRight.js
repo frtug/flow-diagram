@@ -43,13 +43,17 @@ function NavRight({nodes,edges,setNodes,setEdges}) {
           id,
           type: 'textUpdater',
           position: {
-            x: Math.random() * window.innerWidth - 100,
-            y: Math.random() *  window.innerHeight -100,
+            x: event.clientX - event.target.offsetLeft,
+            y: event.clientY - event.target.offsetTop,
           },
           data: {
             onChange:onChange,
             label: "",
             type:`${event.target.id}`
+          },
+          positionAbsolute: {
+            x: event.clientX ,
+            y: event.clientY,
           },
         };
         reactFlowInstance.addNodes(newNode);
@@ -62,8 +66,8 @@ function NavRight({nodes,edges,setNodes,setEdges}) {
         // this will run when user hit the save button
         // nodes and edges are coming from react Flow library 
         const data={
-          initialNodes:nodes,
-          initialEdges:edges
+          initialNodes:reactFlowInstance.toObject().nodes,
+          initialEdges:reactFlowInstance.toObject().edges
         }
         try{
           await saveToDatabase(data);
@@ -95,9 +99,9 @@ function NavRight({nodes,edges,setNodes,setEdges}) {
         { 
         // TODO: make this more ui friendly and get rid of redundent code.
         }
-        <button onClick={onNewInput} id="input" className="btn-class">Input Node</button>
-        <button onClick={onNewInput} id="middle" className="btn-class">Middle Node</button>        
-        <button onClick={onNewInput} id="output" className="btn-class">Output Node</button>
+        <button onDragEnd={onNewInput} draggable="true" id="input" className="btn-class">Input Node</button>
+        <button onDragEnd={onNewInput} draggable="true" id="middle" className="btn-class">Middle Node</button>        
+        <button onDragEnd={onNewInput} draggable="true" id="output" className="btn-class">Output Node</button>
             <button onClick={()=> onSave(nodes,edges)} id="save" className="btn-class">
         Save <img src={Icon}  alt="icon save" width="13px" height="13px"/>
         </button>
